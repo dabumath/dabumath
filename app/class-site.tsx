@@ -39,9 +39,11 @@ async function hashAccessCode(value: string) {
 export default function ClassSite({
   classInfo,
   content,
+  publicPreview = false,
 }: {
   classInfo: ClassRoute;
   content: ClassContent;
+  publicPreview?: boolean;
 }) {
   const storageKey = `dabu-access:${classInfo.id}:${classInfo.accessVersion}`;
   const [unlocked, setUnlocked] = useState(false);
@@ -84,6 +86,16 @@ export default function ClassSite({
     window.localStorage.removeItem(storageKey);
     setUnlocked(false);
     setAccessError("");
+  }
+
+  if (publicPreview) {
+    return (
+      <LearningHub
+        classInfo={classInfo}
+        content={content}
+        publicPreview
+      />
+    );
   }
 
   if (!unlocked) {
@@ -146,12 +158,15 @@ function LearningHub({
   classInfo,
   content,
   onForgetAccess,
+  publicPreview = false,
 }: {
   classInfo: ClassRoute;
   content: ClassContent;
-  onForgetAccess: () => void;
+  onForgetAccess?: () => void;
+  publicPreview?: boolean;
 }) {
   const { announcements, videos, documents } = content;
+  const displayName = publicPreview ? "공개 데모" : classInfo.displayName;
   const [view, setView] = useState<View>("home");
   const [selectedNotice, setSelectedNotice] = useState<Announcement | null>(
     null,
@@ -205,10 +220,14 @@ function LearningHub({
           </nav>
 
           <div className="class-context">
-            <span>{classInfo.displayName}</span>
-            <button type="button" onClick={onForgetAccess}>
-              입장 정보 삭제
-            </button>
+            <span>{displayName}</span>
+            {publicPreview ? (
+              <span className="preview-pill">코드 없이 체험 중</span>
+            ) : (
+              <button type="button" onClick={onForgetAccess}>
+                입장 정보 삭제
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -218,7 +237,7 @@ function LearningHub({
           <>
             <section className="hero">
               <div className="hero-copy">
-                <p className="eyebrow">DABU MATH · {classInfo.displayName}</p>
+                <p className="eyebrow">DABU MATH · {displayName}</p>
                 <h1>
                   필요한 수업과 자료를,
                   <br />
@@ -273,7 +292,7 @@ function LearningHub({
                   <VideoItem
                     key={video.id}
                     video={video}
-                    className={classInfo.displayName}
+                    className={displayName}
                     onOpen={() =>
                       openResource(
                         video.url,
@@ -325,7 +344,7 @@ function LearningHub({
               </h1>
               <p>
                 {view === "videos"
-                  ? `${classInfo.displayName}의 수업 영상을 확인하세요.`
+                  ? `${displayName}의 수업 영상을 확인하세요.`
                   : view === "documents"
                     ? "과제장과 수업 자료를 PDF로 확인할 수 있습니다."
                     : "수업과 학원 운영에 관한 중요한 안내를 확인하세요."}
@@ -339,7 +358,7 @@ function LearningHub({
                     <VideoItem
                       key={video.id}
                       video={video}
-                      className={classInfo.displayName}
+                      className={displayName}
                       onOpen={() =>
                         openResource(
                           video.url,
@@ -370,7 +389,7 @@ function LearningHub({
                     <span className="pdf-mark">PDF</span>
                     <span className="document-copy">
                       <span className="row-meta">
-                        {classInfo.displayName} · {formatDate(document.date)}
+                        {displayName} · {formatDate(document.date)}
                       </span>
                       <strong>{document.title}</strong>
                       <small>
@@ -408,7 +427,11 @@ function LearningHub({
           <strong>DABU MATH</strong>
           <p>생각을 가르치는 수학</p>
         </div>
-        <p className="footer-note">{classInfo.displayName} 학생 페이지</p>
+        <p className="footer-note">
+          {publicPreview
+            ? "피드백을 위한 공개 체험 페이지"
+            : `${displayName} 학생 페이지`}
+        </p>
       </footer>
 
       <nav className="mobile-nav" aria-label="모바일 메뉴">
