@@ -116,8 +116,204 @@ a:focus-visible {
   font-size: 13px;
 }
 
+.class-context {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.class-context > span {
+  color: #4f5762;
+  font-size: 13px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.class-context button {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--surface);
+  color: #7d8590;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.class-context button:hover {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
 main {
   min-height: 70vh;
+}
+
+.welcome-page,
+.access-page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 32px 24px;
+  background:
+    radial-gradient(circle at 80% 14%, rgba(23, 105, 255, 0.1), transparent 25%),
+    linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+}
+
+.welcome-panel,
+.access-panel {
+  width: min(100%, 560px);
+}
+
+.welcome-mark {
+  width: 54px;
+  height: 54px;
+  display: block;
+  margin-bottom: 40px;
+  border-radius: 17px;
+  background: var(--blue);
+  box-shadow: 0 16px 36px rgba(23, 105, 255, 0.24);
+  transform: rotate(8deg);
+}
+
+.welcome-panel h1 {
+  margin: 0;
+  font-size: clamp(52px, 10vw, 76px);
+  line-height: 1.08;
+  letter-spacing: -0.075em;
+}
+
+.welcome-panel > p:not(.eyebrow) {
+  margin: 30px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.welcome-help {
+  margin-top: 46px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: #8a919b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.access-loading {
+  min-height: 100svh;
+  background: white;
+}
+
+.access-panel {
+  padding: 48px;
+  border: 1px solid rgba(220, 226, 235, 0.82);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 28px 70px rgba(34, 55, 90, 0.1);
+}
+
+.access-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 48px;
+  font-size: 17px;
+  letter-spacing: -0.035em;
+}
+
+.access-class {
+  display: inline-flex;
+  margin-bottom: 18px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.access-panel h1 {
+  max-width: 430px;
+  margin: 0;
+  font-size: clamp(32px, 7vw, 44px);
+  line-height: 1.18;
+  letter-spacing: -0.06em;
+}
+
+.access-panel > p {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.access-form {
+  margin-top: 34px;
+}
+
+.access-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #4e5661;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.access-input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.access-input-row input {
+  min-width: 0;
+  height: 54px;
+  padding: 0 16px;
+  border: 1px solid #dce2eb;
+  border-radius: 14px;
+  outline: none;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+}
+
+.access-input-row input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(23, 105, 255, 0.1);
+}
+
+.access-input-row button {
+  min-width: 108px;
+  height: 54px;
+  padding: 0 18px;
+  border-radius: 14px;
+  background: var(--blue);
+  color: white;
+  font-weight: 750;
+}
+
+.access-input-row button:hover {
+  background: var(--blue-strong);
+}
+
+.access-input-row button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.access-error {
+  min-height: 22px;
+  margin: 10px 2px 0;
+  color: #e5484d;
+  font-size: 12px;
+}
+
+.access-panel > small {
+  display: block;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: #9299a3;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 .hero {
@@ -747,8 +943,13 @@ main {
   }
 
   .desktop-nav,
-  .update-label {
+  .update-label,
+  .class-context button {
     display: none;
+  }
+
+  .class-context {
+    margin-left: auto;
   }
 
   .hero {
@@ -850,6 +1051,48 @@ main {
   .wordmark-dot {
     width: 10px;
     height: 10px;
+  }
+
+  .class-context > span {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .welcome-page,
+  .access-page {
+    padding: 24px 18px;
+  }
+
+  .welcome-panel h1 {
+    font-size: 48px;
+  }
+
+  .welcome-panel > p:not(.eyebrow) {
+    font-size: 15px;
+  }
+
+  .welcome-panel > p br {
+    display: none;
+  }
+
+  .access-panel {
+    padding: 34px 24px;
+    border-radius: 26px;
+  }
+
+  .access-brand {
+    margin-bottom: 38px;
+  }
+
+  .access-input-row {
+    grid-template-columns: 1fr;
+  }
+
+  .access-input-row button {
+    width: 100%;
   }
 
   .hero {
