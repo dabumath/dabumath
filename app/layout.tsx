@@ -5,7 +5,8 @@ const title = "DABU MATH";
 const description =
   "수업 영상과 PDF 자료, 중요한 공지를 한곳에서 확인하는 DABU MATH 학생 사이트.";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const ogImage = `${process.env.PAGES_BASE_PATH ?? ""}/og.png`;
+const siteOrigin = new URL(siteUrl).origin;
+const ogImage = `${siteOrigin}${process.env.PAGES_BASE_PATH ?? ""}/og.png`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
