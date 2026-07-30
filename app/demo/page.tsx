@@ -8,16 +8,26 @@ export const metadata = {
 };
 
 const demoClass = classRoutes.find((item) => item.id === "common2a");
+const demoVideoUrl =
+  "https://youtu.be/WnRVWf0gHmY?si=NiTJo6_Duw0Pdy37";
 
 export default function DemoPage() {
   if (!demoClass) {
     return null;
   }
 
+  const baseContent = getClassPageContent(demoClass.id);
+  const demoContent = {
+    ...baseContent,
+    videos: baseContent.videos.map((video, index) =>
+      index === 0 ? { ...video, url: demoVideoUrl } : video,
+    ),
+  };
+
   return (
     <ClassSite
       classInfo={demoClass}
-      content={getClassPageContent(demoClass.id)}
+      content={demoContent}
       publicPreview
     />
   );
