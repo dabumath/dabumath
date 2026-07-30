@@ -129,6 +129,14 @@ a:focus-visible {
   white-space: nowrap;
 }
 
+.class-context .preview-pill {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 11px;
+}
+
 .class-context button {
   padding: 8px 10px;
   border-radius: 10px;
