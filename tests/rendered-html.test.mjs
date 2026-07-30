@@ -44,6 +44,7 @@ test("renders a class-specific access-code gate", async () => {
   assert.match(html, /공통수학2 A반/);
   assert.match(html, /수업 입장 코드/);
   assert.doesNotMatch(html, /dabu-c2a-82/);
+  assert.doesNotMatch(html, /WnRVWf0gHmY/);
 });
 
 test("renders a public feedback demo without an access-code gate", async () => {
@@ -54,6 +55,7 @@ test("renders a public feedback demo without an access-code gate", async () => {
   assert.match(html, /공개 데모/);
   assert.match(html, /코드 없이 체험 중/);
   assert.match(html, /최근 수업/);
+  assert.match(html, /WnRVWf0gHmY/);
   assert.doesNotMatch(html, /수업 입장 코드를 입력해 주세요/);
 });
 
