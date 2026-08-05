@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+dist/
+.vinext/
+.wrangler/
+.npm-cache/
+next-env.d.ts
+CLASS-CODES.private.txt
+.DS_Store
