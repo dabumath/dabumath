@@ -7,6 +7,7 @@ import type {
   ClassRoute,
   Video,
 } from "./site-content";
+import { loadClassContentFromSheet } from "./sheet-content";
 
 type View = "home" | "videos" | "documents" | "notices";
 
@@ -19,6 +20,11 @@ const navigation: { id: View; label: string; shortLabel: string; icon: string }[
   ];
 
 const ACCESS_DURATION_MS = 30 * 24 * 60 * 60 * 1000;
+const EMPTY_CONTENT: ClassContent = {
+  announcements: [],
+  videos: [],
+  documents: [],
+};
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("ko-KR", {
@@ -50,11 +56,38 @@ export default function ClassSite({
   const [accessCode, setAccessCode] = useState("");
   const [accessError, setAccessError] = useState("");
   const [checkingCode, setCheckingCode] = useState(false);
+  const [sheetContent, setSheetContent] = useState<ClassContent | null>(null);
+  const [sheetStatus, setSheetStatus] = useState<
+    "idle" | "loading" | "live" | "error"
+  >(publicPreview ? "idle" : "loading");
 
   useEffect(() => {
     const expiresAt = Number(window.localStorage.getItem(storageKey) ?? "0");
     setUnlocked(expiresAt > Date.now());
   }, [storageKey]);
+
+  useEffect(() => {
+    if (publicPreview) return;
+
+    let cancelled = false;
+    setSheetStatus("loading");
+    setSheetContent(null);
+
+    loadClassContentFromSheet(classInfo)
+      .then((nextContent) => {
+        if (cancelled) return;
+        setSheetContent(nextContent);
+        setSheetStatus("live");
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setSheetStatus("error");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [classInfo, publicPreview]);
 
   async function submitAccessCode(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -94,6 +127,7 @@ export default function ClassSite({
         classInfo={classInfo}
         content={content}
         publicPreview
+        sheetStatus="idle"
       />
     );
   }
@@ -148,8 +182,9 @@ export default function ClassSite({
   return (
     <LearningHub
       classInfo={classInfo}
-      content={content}
+      content={sheetContent ?? EMPTY_CONTENT}
       onForgetAccess={forgetAccess}
+      sheetStatus={sheetStatus}
     />
   );
 }
@@ -159,11 +194,13 @@ function LearningHub({
   content,
   onForgetAccess,
   publicPreview = false,
+  sheetStatus,
 }: {
   classInfo: ClassRoute;
   content: ClassContent;
   onForgetAccess?: () => void;
   publicPreview?: boolean;
+  sheetStatus: "idle" | "loading" | "live" | "error";
 }) {
   const { announcements, videos, documents } = content;
   const displayName = publicPreview ? "공개 데모" : classInfo.displayName;
@@ -231,6 +268,12 @@ function LearningHub({
           </div>
         </div>
       </header>
+
+      {sheetStatus === "error" && (
+        <div className="sync-banner" role="status">
+          최신 수업 자료를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.
+        </div>
+      )}
 
       <main>
         {view === "home" && (
@@ -386,7 +429,7 @@ function LearningHub({
                       )
                     }
                   >
-                    <span className="pdf-mark">PDF</span>
+                    <span className="pdf-mark">{document.mark ?? "PDF"}</span>
                     <span className="document-copy">
                       <span className="row-meta">
                         {displayName} · {formatDate(document.date)}
@@ -476,6 +519,20 @@ function LearningHub({
             {selectedNotice.content.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            {selectedNotice.url && (
+              <button
+                className="notice-link-button"
+                type="button"
+                onClick={() =>
+                  openResource(
+                    selectedNotice.url ?? "",
+                    "연결된 링크가 없습니다.",
+                  )
+                }
+              >
+                {selectedNotice.buttonLabel || "링크 열기"} →
+              </button>
+            )}
           </article>
         </div>
       )}

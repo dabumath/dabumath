@@ -5,6 +5,7 @@ export const classRoutes = [
     subject: "공통수학1",
     section: "",
     displayName: "공통수학1",
+    sheetTargets: ["전체", "공수1", "공통수학1"],
     codeHash:
       "9abdbfcef8fad3305a6548cd86ca3b3dc432c20babb29aaaca0b4844349b3966",
     accessVersion: "2026-01",
@@ -15,6 +16,15 @@ export const classRoutes = [
     subject: "공통수학2",
     section: "A반",
     displayName: "공통수학2 A반",
+    sheetTargets: [
+      "전체",
+      "공수2 전체",
+      "공수2 A",
+      "공수2 A반",
+      "공통수학2 전체",
+      "공통수학2 A",
+      "공통수학2 A반",
+    ],
     codeHash:
       "d7feffe5f58e899b562b8b2ad26d95fcdad2f95bc13fd7ae422aa64140a83f90",
     accessVersion: "2026-01",
@@ -25,6 +35,15 @@ export const classRoutes = [
     subject: "공통수학2",
     section: "B반",
     displayName: "공통수학2 B반",
+    sheetTargets: [
+      "전체",
+      "공수2 전체",
+      "공수2 B",
+      "공수2 B반",
+      "공통수학2 전체",
+      "공통수학2 B",
+      "공통수학2 B반",
+    ],
     codeHash:
       "52d78241129c81a4af2807f70728f8247b4a34bc464bbe862500da8fc6ff6c71",
     accessVersion: "2026-01",
@@ -35,6 +54,7 @@ export const classRoutes = [
     subject: "대수",
     section: "",
     displayName: "대수",
+    sheetTargets: ["전체", "대수"],
     codeHash:
       "ca615b2a64307e6715978ea6402f75a940715e379d8f52a3b7d559abc38c26ad",
     accessVersion: "2026-01",
@@ -45,6 +65,15 @@ export const classRoutes = [
     subject: "미적분Ⅰ",
     section: "A반",
     displayName: "미적분Ⅰ A반",
+    sheetTargets: [
+      "전체",
+      "미적분Ⅰ 전체",
+      "미적분Ⅰ A",
+      "미적분Ⅰ A반",
+      "미적분1 전체",
+      "미적분1 A",
+      "미적분1 A반",
+    ],
     codeHash:
       "34ea66fef6be46af34b8cf4b910163e58b9e70c1362a2080d96314f0b0bcc474",
     accessVersion: "2026-01",
@@ -55,6 +84,15 @@ export const classRoutes = [
     subject: "미적분Ⅰ",
     section: "B반",
     displayName: "미적분Ⅰ B반",
+    sheetTargets: [
+      "전체",
+      "미적분Ⅰ 전체",
+      "미적분Ⅰ B",
+      "미적분Ⅰ B반",
+      "미적분1 전체",
+      "미적분1 B",
+      "미적분1 B반",
+    ],
     codeHash:
       "62c68d906be90be41252b3638e5efa648b8b9fbd7034dc30181e92a7b317097a",
     accessVersion: "2026-01",
@@ -65,6 +103,7 @@ export const classRoutes = [
     subject: "미적분Ⅱ",
     section: "",
     displayName: "미적분Ⅱ",
+    sheetTargets: ["전체", "미적분Ⅱ", "미적분2"],
     codeHash:
       "c53bc2c199fd6cbf3353b8b2a8c189d3ff4ef5d79cc7b59279fe627fe9eda5e3",
     accessVersion: "2026-01",
@@ -75,6 +114,7 @@ export const classRoutes = [
     subject: "확률과 통계",
     section: "",
     displayName: "확률과 통계",
+    sheetTargets: ["전체", "확률과 통계", "확통"],
     codeHash:
       "d45cef7052c9c3da898ff00aa17cf56b4a2a739963195c799c8572f9e6a17d6a",
     accessVersion: "2026-01",
@@ -85,6 +125,7 @@ export const classRoutes = [
     subject: "기하",
     section: "",
     displayName: "기하",
+    sheetTargets: ["전체", "기하"],
     codeHash:
       "61f3bd444374fc3cd67e11820469d2b5994b10db1dbd43fd5e3dd9f771e0ce4c",
     accessVersion: "2026-01",
@@ -95,6 +136,7 @@ export const classRoutes = [
     subject: "여름 방학 특강",
     section: "",
     displayName: "여름 방학 특강",
+    sheetTargets: ["전체", "여름 방학 특강", "여름특강"],
     codeHash:
       "108edceb8910db9cc79f46d86b2e383f5f21ad92b9fdad425b2c3839ddf7fd9d",
     accessVersion: "2026-01",
@@ -112,6 +154,8 @@ export type Announcement = {
   date: string;
   pinned?: boolean;
   content: string[];
+  url?: string;
+  buttonLabel?: string;
 };
 
 export type Video = {
@@ -133,6 +177,7 @@ export type Document = {
   date: string;
   isNew: boolean;
   url: string;
+  mark?: string;
 };
 
 export type ClassContent = {

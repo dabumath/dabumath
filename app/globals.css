@@ -60,6 +60,15 @@ a:focus-visible {
   backdrop-filter: blur(18px);
 }
 
+.sync-banner {
+  padding: 10px 20px;
+  border-bottom: 1px solid #f0dfb4;
+  background: #fff9e9;
+  color: #805e12;
+  font-size: 12px;
+  text-align: center;
+}
+
 .header-inner {
   width: min(calc(100% - 48px), var(--max-width));
   height: 76px;
@@ -918,6 +927,20 @@ main {
   color: #4f5660;
   font-size: 15px;
   line-height: 1.8;
+}
+
+.notice-link-button {
+  margin-top: 8px;
+  padding: 13px 17px;
+  border-radius: 12px;
+  background: var(--blue);
+  color: white;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.notice-link-button:hover {
+  background: var(--blue-strong);
 }
 
 .toast {

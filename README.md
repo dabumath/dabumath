@@ -2,17 +2,24 @@
 
 공지, YouTube 수업 영상, PDF 자료만 제공하는 모바일 중심의 정적 사이트입니다.
 
-## 콘텐츠 바꾸기
+## 콘텐츠와 링크 바꾸기
 
-`app/site-content.ts` 파일의 세 목록만 수정하면 됩니다.
+학생 사이트는 아래 통합 Google Sheet를 실행할 때마다 읽습니다.
 
-- `announcements`: 공지사항
-- `videos`: 수업 영상
-- `documents`: PDF 자료
+```text
+https://docs.google.com/spreadsheets/d/1Gtv7HomDZWJt_DUlfOH4mncTpgGGdqQqU5p5TALEhtM/edit
+```
 
-현재 각 항목의 `url`은 빈 값이라 시제품 안내 메시지를 보여줍니다. 실제
-운영 전 영상에는 YouTube URL, PDF에는 Google Drive URL을 붙여 넣으면 새
-창으로 연결됩니다.
+- `게시 상태`가 `게시`인 행만 표시됩니다.
+- `게시 시작일` 이전이거나 `게시 종료일`이 지난 행은 표시되지 않습니다.
+- `공지`, `일정`은 공지사항에 표시됩니다.
+- `영상보강`은 수업 영상에 표시됩니다.
+- `과제`, `자료`, `링크`는 PDF 자료 화면에 표시됩니다.
+- `반`이 `전체`인 행은 모든 수업 페이지에 표시됩니다.
+- A/B반 공용 콘텐츠는 `공수2 전체` 또는 `미적분Ⅰ 전체`로 입력합니다.
+
+GitHub Pages에서 로그인 없이 읽을 수 있도록 Google Sheet의 공유 범위는
+`링크가 있는 모든 사용자 · 뷰어`여야 합니다.
 
 ## 로컬 실행
 
